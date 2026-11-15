@@ -30,6 +30,9 @@
   <div class="glow three"></div>
 
   <main>
+    <div class="topbar">
+      <button id="google-status" class="pill">Connect Google</button>
+    </div>
     <p class="hero">Say it.<br>Schedule it.</p>
     <p class="subtitle">Write a task, choose how urgent it is, and you're done.</p>
 
@@ -59,7 +62,13 @@
     <ul id="list"></ul>
   </main>
 
-  <!-- Load the behaviour (what happens when you tap things) from app.js -->
+  <!-- A small pop-up message ("Added to Google Calendar ✓") -->
+  <div id="message" hidden></div>
+
+  <!-- Load the behaviour: our Google code, then the screen code -->
+  <script src="google.js"></script>
   <script src="app.js"></script>
+  <!-- Google's own sign-in library. When it finishes loading, it calls initGoogle() -->
+  <script src="https://accounts.google.com/gsi/client" async onload="initGoogle()"></script>
 </body>
 </html>

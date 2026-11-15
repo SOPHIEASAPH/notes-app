@@ -159,4 +159,42 @@ button.primary:disabled { opacity: 0.35; box-shadow: none; }
   background: var(--gradient);
 }
 #list .meta { font-size: 13px; color: var(--muted); margin-top: 4px; }
-.empty { color: var(--muted); text-align: center; padding: 16px; }
+#list li.empty { text-align: center; color: var(--muted); }
+#list li.empty::before { display: none; }
+
+/* Small Retry button on tasks that didn't reach Google */
+button.retry {
+  margin-top: 10px;
+  padding: 6px 14px;
+  font-size: 13px;
+  border-color: var(--pink);
+}
+
+/* The "Connect Google" button in the top corner */
+.topbar { display: flex; justify-content: flex-end; }
+button.pill {
+  padding: 8px 14px;
+  font-size: 13px;
+  background: var(--glass);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+button.pill.connected { border-color: rgba(120, 255, 170, 0.5); color: #b8ffd6; }
+
+/* The pop-up message at the bottom of the screen */
+#message {
+  position: fixed;
+  left: 50%;
+  bottom: calc(24px + env(safe-area-inset-bottom));
+  transform: translateX(-50%);
+  max-width: calc(100% - 32px);
+  padding: 12px 18px;
+  border-radius: 999px;
+  background: rgba(20, 16, 30, 0.9);
+  border: 1px solid var(--line);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  font-size: 14px;
+  text-align: center;
+}
+#message.error { border-color: var(--pink); }
