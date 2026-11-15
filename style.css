@@ -1,0 +1,162 @@
+/*
+  style.css = the DESIGN of the page (colors, sizes, spacing).
+  Each block says: "for THESE elements, use THESE styles".
+*/
+
+/* Our colors, defined once with names ("variables") so they're easy to change later */
+:root {
+  --purple: #7b2ff7;
+  --pink:   #f107a3;
+  --yellow: #ffc93c;
+  --gradient: linear-gradient(120deg, var(--purple), var(--pink) 55%, var(--yellow));
+
+  --bg:    #0d0a14;                    /* near-black with a hint of purple */
+  --glass: rgba(255, 255, 255, 0.06);  /* see-through "frosted glass" panels */
+  --line:  rgba(255, 255, 255, 0.12);  /* thin borders */
+  --text:  #f6f2ff;
+  --muted: rgba(246, 242, 255, 0.6);
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: "Inter", -apple-system, system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  overflow-x: hidden;
+}
+
+/* The glowing colored blobs behind everything */
+.glow {
+  position: fixed;
+  border-radius: 50%;
+  filter: blur(90px);   /* blur turns hard circles into soft light */
+  opacity: 0.55;
+  z-index: -1;          /* keep them BEHIND the content */
+  animation: float 14s ease-in-out infinite alternate;
+}
+.glow.one   { width: 340px; height: 340px; background: var(--purple); top: -120px; left: -100px; }
+.glow.two   { width: 300px; height: 300px; background: var(--pink);   top: 35%;    right: -140px; animation-delay: -5s; }
+.glow.three { width: 260px; height: 260px; background: var(--yellow); bottom: -120px; left: 10%; opacity: 0.35; animation-delay: -9s; }
+
+/* Slow drifting motion for the blobs */
+@keyframes float {
+  to { transform: translate(40px, 30px) scale(1.1); }
+}
+
+main {
+  max-width: 480px;
+  margin: 0 auto;
+  /* env(safe-area-inset-top) = leave room for the iPhone's notch / clock area */
+  padding: calc(16px + env(safe-area-inset-top)) 16px 48px;
+}
+
+/* Big headline with gradient-colored letters */
+.hero {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 44px;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  margin: 40px 0 8px;
+  background: var(--gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.subtitle { color: var(--muted); margin: 0 0 24px; }
+
+h1 { font-family: "Space Grotesk", sans-serif; font-size: 22px; margin: 40px 0 12px; }
+h2 {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  margin: 24px 0 10px;
+  color: var(--muted);
+}
+
+/* A frosted-glass panel that holds the form */
+.card {
+  background: var(--glass);
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  padding: 20px;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+textarea, input[type="date"] {
+  width: 100%;
+  box-sizing: border-box;
+  font-family: inherit; /* use the same font as the rest of the page */
+  font-size: 17px;
+  padding: 14px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: rgba(0, 0, 0, 0.25);
+  color: var(--text);
+  color-scheme: dark;   /* makes the iPhone date picker dark too */
+  outline: none;
+}
+textarea:focus, input[type="date"]:focus { border-color: var(--pink); }
+textarea::placeholder { color: var(--muted); }
+
+/* The 4 urgency buttons, in a 2x2 grid */
+.choices {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+button {
+  font-family: inherit;
+  font-size: 15px;
+  padding: 14px;
+  border: 1px solid var(--line);
+  border-radius: 999px;   /* fully rounded "pill" shape */
+  background: transparent;
+  color: var(--text);
+  cursor: pointer;
+  transition: transform 0.15s, background 0.2s;
+}
+button:active { transform: scale(0.97); }  /* tiny "press" effect */
+
+/* The urgency button you picked fills with the gradient */
+button.selected {
+  background: var(--gradient);
+  border-color: transparent;
+  font-weight: 600;
+}
+
+button.primary {
+  width: 100%;
+  margin-top: 24px;
+  padding: 16px;
+  background: var(--gradient);
+  border: none;
+  font-weight: 700;
+  font-size: 16px;
+  box-shadow: 0 10px 30px rgba(241, 7, 163, 0.35);  /* pink glow under the button */
+}
+button.primary:disabled { opacity: 0.35; box-shadow: none; }
+
+/* The saved tasks list */
+#list { list-style: none; padding: 0; margin: 0; }
+#list li {
+  background: var(--glass);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  padding: 14px 16px;
+  margin-bottom: 10px;
+  position: relative;
+  overflow: hidden;
+}
+/* A thin gradient stripe on the side of each task */
+#list li::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 4px;
+  background: var(--gradient);
+}
+#list .meta { font-size: 13px; color: var(--muted); margin-top: 4px; }
+.empty { color: var(--muted); text-align: center; padding: 16px; }

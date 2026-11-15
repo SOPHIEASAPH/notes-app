@@ -1,0 +1,65 @@
+<!doctype html>
+<!--
+  index.html = the STRUCTURE of the page (what's on the screen).
+  Think of it as the skeleton: text boxes, buttons, lists.
+-->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <!-- Makes the page fit an iPhone screen properly -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0d0a14">
+  <!-- These lines make it behave like an app when added to the iPhone home screen -->
+  <link rel="manifest" href="manifest.json">
+  <link rel="apple-touch-icon" href="icon-180.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="Tasks">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <title>My Tasks</title>
+  <!-- Two free fonts from Google: Space Grotesk for headlines, Inter for text -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+  <!-- Load the design (colors, sizes) from style.css -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Decorative glowing blobs in the background (purely visual) -->
+  <div class="glow one"></div>
+  <div class="glow two"></div>
+  <div class="glow three"></div>
+
+  <main>
+    <p class="hero">Say it.<br>Schedule it.</p>
+    <p class="subtitle">Write a task, choose how urgent it is, and you're done.</p>
+
+    <section class="card">
+      <!-- STEP A: write the note. dir="auto" = works for Hebrew (right-to-left) and English -->
+      <textarea id="note" dir="auto" rows="3" placeholder="What do you need to do? / מה צריך לעשות?"></textarea>
+
+      <!-- STEP B: how urgent? Each button has a "data-urgency" label we read in JavaScript -->
+      <h2>How urgent?</h2>
+      <div class="choices" id="urgency">
+        <button data-urgency="today">Today</button>
+        <button data-urgency="week">This week</button>
+        <button data-urgency="later">Later</button>
+        <button data-urgency="none">No deadline</button>
+      </div>
+
+      <!-- STEP C: which day? Filled in automatically from the urgency, but you can change it -->
+      <div id="when-box" hidden>
+        <h2>Remind me on</h2>
+        <input type="date" id="when">
+      </div>
+
+      <button id="save" class="primary" disabled>Save task</button>
+    </section>
+
+    <h1>My tasks</h1>
+    <ul id="list"></ul>
+  </main>
+
+  <!-- Load the behaviour (what happens when you tap things) from app.js -->
+  <script src="app.js"></script>
+</body>
+</html>
